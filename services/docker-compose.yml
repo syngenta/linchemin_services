@@ -1,0 +1,12 @@
+version: "3"
+services:
+  rxnmapper_service:
+    build:
+      context: ./rxnmapper
+      dockerfile: dev.dockerfile
+    container_name: rxnmapper_service
+    image: rxnmapper_service
+    command: uvicorn main:app --host 0.0.0.0 --port 8001
+    restart: always
+    ports:
+    - "8001:8002" # HOST:CONTAINER
