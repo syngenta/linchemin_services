@@ -1,8 +1,11 @@
 from linchemin_services.rxnmapper import service
+from linchemin_services import settings
+
+rxnmapper_url = f"{settings.RXNMAPPER_BASE_URL}:{settings.RXNMAPPER_PORT}"
 
 
 def test_endpoint_metadata():
-    rxnmapper_service = service.RxnMapperService(base_url="http://127.0.0.1:8003/")
+    rxnmapper_service = service.RxnMapperService(base_url=rxnmapper_url)
     # print("\n metadata")
     endpoint = rxnmapper_service.endpoint_map.get("metadata")
     inp_example = endpoint.input_example
@@ -16,7 +19,7 @@ def test_endpoint_metadata():
 
 
 def test_endpoint_run_batch():
-    rxnmapper_service = service.RxnMapperService(base_url="http://127.0.0.1:8003/")
+    rxnmapper_service = service.RxnMapperService(base_url=rxnmapper_url)
     # print("\n run_batch")
     endpoint = rxnmapper_service.endpoint_map.get("run_batch")
     inp_example = endpoint.input_example
@@ -29,7 +32,7 @@ def test_endpoint_run_batch():
 
 
 def test_reactions(reactions_examples):
-    rxnmapper_service = service.RxnMapperService(base_url="http://127.0.0.1:8003/")
+    rxnmapper_service = service.RxnMapperService(base_url=rxnmapper_url)
     endpoint = rxnmapper_service.endpoint_map.get("run_batch")
     query_data = reactions_examples
     request_input = {"classification_code": "rxnmapper",
@@ -52,4 +55,3 @@ def test_reactions(reactions_examples):
     failures_list = output.get("failures_list")
     assert isinstance(successes_list, list)
     assert isinstance(failures_list, list)
-
