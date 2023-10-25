@@ -32,7 +32,7 @@ Optionally, the user can process only selected services (see docker compose user
 This command creates the containers, starts the services, and assigns to each a dedicated port, accessible from the outside of the container.
 
 > cd /services/  
-> docker compose build
+> docker compose build  
 > docker compose up
 
 Alternatively, the user can enter each service directory and create a container for the relative service.
@@ -69,8 +69,8 @@ the actual response of the single endpoints match the expected one.
 The unit tests for the single services in contained inside each service's directory.  
 After installation and before running the tests, it is necessary to configure the package. This will create the user_home/linchemin_services directory containing a .settings.yaml file with some default parameters and a .secrets.yaml storing keys for secrets.  
 
-> pip install -e .[dev]
-> linchemin_services_configure
+> pip install -e .[dev]  
+> linchemin_services_configure  
 > cd tests    
 > pytest  
 
