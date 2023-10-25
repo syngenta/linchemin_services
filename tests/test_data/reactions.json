@@ -1,0 +1,14 @@
+[
+    {
+        "query_id": "0",
+        "input_string": "CN.CC(O)=O>O>CNC(C)=O"
+    },
+    {
+        "query_id": "1",
+        "input_string": "C=CCNC(C)=O.ClCCl.O=C(OO)c1cccc(Cl)c1>>CC(=O)NCC1CO1"
+    },
+    {
+        "query_id": "2",
+        "input_string": "CC(Cl)=O.CN.CC#N>>CNC(C)=O.O"
+    }
+ ]

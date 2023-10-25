@@ -1,11 +1,12 @@
 import string
-from typing import Optional, List, ClassVar
 from enum import Enum
+from typing import ClassVar, List, Optional
+
 from pydantic import BaseModel
 
 
 class ReactionFormat(Enum):
-    SMILES = 'smiles'
+    SMILES = "smiles"
     # RXNBLOCK = 'rxnblock'
 
 
@@ -21,8 +22,8 @@ class QueryReactionString(BaseModel):
     class Config:
         schema_extra = {
             "example": {
-                'input_string': 'CC(Cl)=O.CN>>CNC(C)=O',
-                'query_id': '1',
+                "input_string": "CC(Cl)=O.CN>>CNC(C)=O",
+                "query_id": "1",
             }
         }
 
@@ -41,7 +42,7 @@ class ResultsReactionString(BaseModel):
                 "query_id": "1",
                 "confidence": 0.981,
                 "success": True,
-                "notes": {}
+                "notes": {},
             }
         }
 
@@ -54,14 +55,8 @@ class Metadata(BaseModel):
     class Config:
         schema_extra = {
             "example": {
-                "ci_toolkit": {
-                    "name": "RDKit",
-                    "version": "2022.09.1"
-                },
-                "a2a_mapper": {
-                    "name": "rxnmapper",
-                    "version": "0.2.4"
-                }
+                "ci_toolkit": {"name": "RDKit", "version": "2022.09.1"},
+                "a2a_mapper": {"name": "rxnmapper", "version": "0.2.4"},
             }
         }
 
@@ -71,22 +66,21 @@ class RunBatchInp(BaseModel):
     inp_fmt: str
     out_fmt: str
 
-    query_data_field: ClassVar[str] = 'query_data'
-    parameter_fields: ClassVar[List[str]] = ['inp_fmt', 'out_fmt', ]
+    query_data_field: ClassVar[str] = "query_data"
+    parameter_fields: ClassVar[List[str]] = [
+        "inp_fmt",
+        "out_fmt",
+    ]
 
     class Config:
         schema_extra = {
             "example": {
-                'classification_code': 'namerxn',
-                'inp_fmt': 'smiles',
-                'out_fmt': 'smiles',
-                'mapping_style': 'matching',
-                'query_data': [
-                    {
-                        "input_string": "CC(Cl)=O.CN.CC#N>>CNC(C)=O.O",
-                        "query_id": "1"
-                    }
-                ]
+                "classification_code": "namerxn",
+                "inp_fmt": "smiles",
+                "out_fmt": "smiles",
+                "query_data": [
+                    {"input_string": "CC(Cl)=O.CN.CC#N>>CNC(C)=O.O", "query_id": "1"}
+                ],
             }
         }
 
@@ -96,33 +90,45 @@ class RunBatchOut(BaseModel):
     query_parameters: dict
     output: dict
     # success_list: List[ResultsReactionString]
-    # failure_list: List[QueryReactionString]
+    # failures_list: List[QueryReactionString]
     outcome: dict
 
     class Config:
         schema_extra = {
             "example": {
-                'metadata': {
-                    'ci_toolkit': {'name': 'RDKit', 'version': '2022.09.1'},
-                    'a2a_mapper': {'name': 'rxnmapper', 'version': '0.2.4'}},
-                'query_parameters': {'inp_fmt': 'smiles', 'out_fmt': 'smiles'},
-                'output': {'successes_list':
-                               [{'query_id': '1',
-                                 'output_string': 'CC#N.Cl[C:3]([CH3:4])=[O:5].[CH3:1][NH2:2]>>[CH3:1][NH:2][C:3]([CH3:4])=[O:5].[OH2:6]',
-                                 'confidence': 0.981, 'notes': {}, 'success': True}], 'failure_list': []},
-                'outcome': {}
+                "metadata": {
+                    "ci_toolkit": {"name": "RDKit", "version": "2022.09.1"},
+                    "a2a_mapper": {"name": "rxnmapper", "version": "0.2.4"},
+                },
+                "query_parameters": {"inp_fmt": "smiles", "out_fmt": "smiles"},
+                "output": {
+                    "successes_list": [
+                        {
+                            "query_id": "1",
+                            "output_string": "CC#N.Cl[C:3]([CH3:4])=[O:5].[CH3:1][NH2:2]>>[CH3:1][NH:2][C:3]([CH3:4])=[O:5].[OH2:6]",
+                            "confidence": 0.981,
+                            "notes": {},
+                            "success": True,
+                        }
+                    ],
+                    "failures_list": [],
+                },
+                "outcome": {},
             }
         }
 
 
 endpoint_info_map = {
-    'metadata': {'ep_url': 'metadata',
-                 'input_schema': None,
-                 'output_schema': Metadata,
-                 'request_method': 'get', },
-
-    'run_batch': {'ep_url': 'run_batch',
-                  'input_schema': RunBatchInp,
-                  'output_schema': RunBatchOut,
-                  'request_method': 'post'}
+    "metadata": {
+        "ep_url": "metadata",
+        "input_schema": None,
+        "output_schema": Metadata,
+        "request_method": "get",
+    },
+    "run_batch": {
+        "ep_url": "run_batch",
+        "input_schema": RunBatchInp,
+        "output_schema": RunBatchOut,
+        "request_method": "post",
+    },
 }
