@@ -9,7 +9,7 @@ services:
     command: uvicorn main:app --host 0.0.0.0 --port 8001 --reload
     restart: always
     ports:
-    - "8001:8002" # HOST:CONTAINER
+    - "8003:8001" # HOST:CONTAINER
     volumes:
       - ./src:/code/src # useful in dev
 

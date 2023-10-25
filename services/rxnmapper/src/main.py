@@ -1,7 +1,8 @@
 from typing import List
-from fastapi import FastAPI, Query
+
 import application
 import schemas
+from fastapi import FastAPI, Query
 
 app = FastAPI()
 
@@ -17,14 +18,13 @@ def get_medadata() -> schemas.Metadata:
 
 
 @app.post("/run_batch/", response_model=schemas.RunBatchOut)
-async def perform_reaction_classification_batch(
-        query_data: List[schemas.QueryReactionString],
-        inp_fmt: str = Query('smiles', enum=[x.value for x in
-                                             schemas.ReactionFormat]),
-        out_fmt: str = Query('smiles', enum=[x.value for x in
-                                             schemas.ReactionFormat])) \
-        -> schemas.RunBatchOut:
-    return application.run_batch(query_data=query_data,
-                                 inp_fmt=inp_fmt, out_fmt=out_fmt,
-                                )
-
+async def perform_reaction_process_batch(
+    query_data: List[schemas.QueryReactionString],
+    inp_fmt: str = Query("smiles", enum=[x.value for x in schemas.ReactionFormat]),
+    out_fmt: str = Query("smiles", enum=[x.value for x in schemas.ReactionFormat]),
+) -> schemas.RunBatchOut:
+    return application.run_batch(
+        query_data=query_data,
+        inp_fmt=inp_fmt,
+        out_fmt=out_fmt,
+    )
