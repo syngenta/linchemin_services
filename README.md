@@ -33,6 +33,7 @@ This command creates the containers, starts the services, and assigns to each a 
 
 > cd /services/  
 > docker compose build
+> docker compose up
 
 Alternatively, the user can enter each service directory and create a container for the relative service.
 This might be useful in development as the source is mounted in the container, to allow live observation of code changes.
@@ -60,13 +61,16 @@ The service exposes two endpoints:
 * /run_batch    : receiving list of queries and processing them in batch  
 
 The openAPI doc page  provides both examples and documentation   
-[http://127.0.0.1:8002/docs#](http://127.0.0.1:8002/docs#)
+[http://127.0.0.1:8003/docs#](http://127.0.0.1:8003/docs#)
 
 ## Testing the services
 The tests directory includes simple end-to-end tests aimed at checking that the services are up and running and that 
 the actual response of the single endpoints match the expected one.  
 The unit tests for the single services in contained inside each service's directory.  
-> pip install -e .[development]   
+After installation and before running the tests, it is necessary to configure the package. This will create the user_home/linchemin_services directory containing a .settings.yaml file with some default parameters and a .secrets.yaml storing keys for secrets.  
+
+> pip install -e .[dev]
+> linchemin_services_configure
 > cd tests    
 > pytest  
 
